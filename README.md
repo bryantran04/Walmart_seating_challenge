@@ -40,8 +40,10 @@
    - Easier to deal with larger groups first, because smaller groups can fill in the gaps
 4. While there are items on the heap
    - Pop an item off the heap
-   -
-   - First assign customers in the back
+   - If the number of people in that item is more than the max of number of consecutive seats open in any row or greater than 10.
+     - Break that tuple in half, and push it back onto the heap
+   - Find the furthest row in the back with the max consecutive seats, fill in those rows first
    - even rows expand from the left
    - odd rows expand from the right
-5. Fourth item
+   - Assign seats for that specfic reservation id
+   - Recalculate the max of number of consecutive seats open in that specific row we just used
