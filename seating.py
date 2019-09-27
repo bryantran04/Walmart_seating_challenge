@@ -3,19 +3,23 @@ import heapq
 import collections
 import sys
 
+#Movie_Theater_Seating_System Class
+'''
+Class variables 
 
-import os
-import heapq
-import collections
-import sys
-
-
+reservations - list of reservations with the number of people in each request
+heap - Tuples of reservation id, and the number of people 
+reservation_id_to_seats - hashtable that maps the reservation id to a list of seats
+max_consec - List of ints, where the index maps to the number of consecutive seats open in that row
+movie_theater_seats - Matrix representation of movie theater
+num_of_people - total number of people in all requests
+'''
 class Movie_Theater_Seating_System():
     def __init__(self):
         self.reservations = []
-        self.heap = []
+        self.heap = [] 
         self.reservation_id_to_seats = collections.defaultdict(list)
-        self.max_consec = [20 for i in range(10)]
+        self.max_consec = [20 for i in range(10)] #
         self.movie_theater_seats = [
             ["_" for i in range(20)] for j in range(10)]
         self.num_of_people = 0
@@ -36,17 +40,20 @@ class Movie_Theater_Seating_System():
             popped = heapq.heappop(self.heap)
             num_people = popped[0]*-1
             reservation_id = popped[1]
+            #If there are no rows with consecutive seats to seat num_people, divide that group in half
             if num_people > max(self.max_consec):
                 first_split = num_people//2
                 second_split = num_people-first_split
                 heapq.heappush(self.heap, (first_split*-1, popped[1]))
                 heapq.heappush(self.heap, (second_split*-1, popped[1]))
+            #If there is a group more than 10, divide that group by half
             elif num_people > 10:
                 first_split = num_people//2
                 second_split = num_people-first_split
                 heapq.heappush(self.heap, (first_split*-1, popped[1]))
                 heapq.heappush(self.heap, (second_split*-1, popped[1]))
             else:
+                #Find the furthest row in the back with the max consecutive seats, fill in those rows first
                 current_row = -1
                 empty_seats = 0
                 for i in range(len(self.max_consec)):
@@ -54,17 +61,20 @@ class Movie_Theater_Seating_System():
                         if self.max_consec[i] >= empty_seats:
                             empty_seats = self.max_consec[i]
                             current_row = i
+                #If the row is an even number, assign from the left of the row
+                #else assign from the right of the row
                 if current_row % 2 == 0:
                     first_index = self.index_of_first_seat_left(
                         current_row, num_people)
                 else:
                     first_index = self.index_of_first_seat_right(
                         current_row, num_people)
+                #Seat people
                 self.seating_people(current_row, first_index,
                                     num_people, reservation_id)
+                #Recalculate the max number of consecutive empty rows, for current_row
                 self.recalcuate_max_consecutive_seats_in_row(current_row)
-    ##Find first index of n consecutive open seats
-
+    ##Find first index of n consecutive open seats, starting from the left
     def index_of_first_seat_left(self, row, number_of_consecutive):
         current = 0
         found = False
@@ -79,7 +89,7 @@ class Movie_Theater_Seating_System():
                 else:
                     index = i + 1
                     break
-
+    ##Find first index of n consecutive open seats, starting from the right
     def index_of_first_seat_right(self, row, number_of_consecutive):
         current = 0
         found = False
@@ -94,7 +104,7 @@ class Movie_Theater_Seating_System():
                 else:
                     index = i
                     break
-
+    #Seat people, with the given row, index, and number of people
     def seating_people(self, row, index, num_people, reservation_id):
         for i in range(num_people):
             self.movie_theater_seats[row][index+i] = "t"
