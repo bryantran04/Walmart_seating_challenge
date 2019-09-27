@@ -1,7 +1,7 @@
 # Walmart_seating_challenge
 
 <p>To use the script:<br>
-/python3 seating.py <file_name> </p>
+/python3 seating.py file_name </p>
 
 - Maximize Customer Satisfaction
   - Customers to prefer the back more
