@@ -1,3 +1,10 @@
+import os
+import heapq
+import collections
+import sys
+
+
+import os
 import heapq
 import collections
 import sys
@@ -72,12 +79,6 @@ class Movie_Theater_Seating_System():
                 else:
                     index = i + 1
                     break
-            if index >= len(self.movie_theater_seats[0]):
-                return -1
-        if current < number_of_consecutive:
-            return -1
-        else:
-            return index
 
     def index_of_first_seat_right(self, row, number_of_consecutive):
         current = 0
@@ -91,14 +92,8 @@ class Movie_Theater_Seating_System():
                     if current == number_of_consecutive:
                         return i
                 else:
-                    index = i - 1
+                    index = i
                     break
-            if index < 0:
-                return -1
-        if current < number_of_consecutive:
-            return -1
-        else:
-            return index
 
     def seating_people(self, row, index, num_people, reservation_id):
         for i in range(num_people):
@@ -135,10 +130,15 @@ if __name__ == "__main__":
     movie_theater.start_assigning_seats()
 
     f = open(file_name+"_"+"results", "w+")
+    count_seats=0
     for i in range(len(movie_theater.reservations)):
         reservation_id = movie_theater.reservations[i][0]
         output = reservation_id + " "
         for seat in movie_theater.reservation_id_to_seats[reservation_id]:
             output += row_to_char[seat[0]]+str(seat[1]+1)+","
+            count_seats+=1
         f.write(output[:-1]+"\n")
 
+    print(count_seats)
+    dirpath = os.getcwd()
+    print("path of file : " + dirpath+"/"+file_name+"_"+"results")
