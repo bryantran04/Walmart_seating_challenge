@@ -27,10 +27,20 @@
 
 1. Input reservation request
 2. Initialize my class
-   -
+   <p>Class variables
+
+reservations - list of reservations with the number of people in each request
+heap - Tuples of reservation id, and the number of people
+reservation_id_to_seats - hashtable that maps the reservation id to a list of seats
+max_consec - List of ints, where the index maps to the number of consecutive seats open in that row
+movie_theater_seats - Matrix representation of movie theater</p>
+num_of_people - total number of people in all requests
+
 3. Loop through each row and put a tuple of (num_people,reservation_id) onto a max heap
    - Easier to deal with larger groups first, because smaller groups can fill in the gaps
 4. While there are items on the heap
+   - Pop an item off the heap
+   -
    - First assign customers in the back
    - even rows expand from the left
    - odd rows expand from the right
