@@ -3,6 +3,8 @@
 <p>To use the script:<br>
 /python3 seating.py file_name </p>
 
+### Planning Notes
+
 - Maximize Customer Satisfaction
   - Customers to prefer the back more
     - First assign customers in the back
@@ -20,3 +22,16 @@
 - Heap to prioritize requests:
   - Bigger groups should have higher priority
   - If you're by youself, it's easier to find a seat for you, since you don't want to be part of a group
+
+### My algorithm
+
+1. Input reservation request
+2. Initialize my class
+   -
+3. Loop through each row and put a tuple of (num_people,reservation_id) onto a max heap
+   - Easier to deal with larger groups first, because smaller groups can fill in the gaps
+4. While there are items on the heap
+   - First assign customers in the back
+   - even rows expand from the left
+   - odd rows expand from the right
+5. Fourth item
