@@ -23,6 +23,8 @@
   - Bigger groups should have higher priority
   - If you're by youself, it's easier to find a seat for you, since you don't want to be part of a group
 
+<p>I assume every input is valid, where the total number of people is less than or equal to 200</p>
+
 ### My algorithm
 
 1. Input reservation request
